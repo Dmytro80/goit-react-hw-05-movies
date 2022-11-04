@@ -37,7 +37,7 @@ const Movies = () => {
     return () => {
       controller.abort();
     };
-  }, [searchParams]);
+  }, [userQuery]);
 
   const formSubmitHandler = query => {
     const nextParams = query !== '' ? { query } : {};
