@@ -8,7 +8,7 @@ const Home = () => {
   useEffect(() => {
     const controller = new AbortController();
 
-    async function fetchPictures() {
+    async function fetchTrendingMovies() {
       try {
         const { results } = await getTrendingMovies(controller);
 
@@ -18,7 +18,7 @@ const Home = () => {
       }
     }
 
-    fetchPictures();
+    fetchTrendingMovies();
 
     return () => {
       controller.abort();
