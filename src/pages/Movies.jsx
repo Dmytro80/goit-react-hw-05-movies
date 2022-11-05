@@ -18,13 +18,10 @@ const Movies = () => {
 
     async function fetchMovies() {
       try {
-        console.log(userQuery);
         if (!userQuery) {
           return;
         }
         const { results } = await getMovies(paramsRequest);
-
-        console.log(results);
 
         results.length !== 0 && setItems(results);
       } catch (error) {

@@ -22,3 +22,14 @@ export const getMovies = async ({ userQuery, controller }) => {
 
   return response.data;
 };
+
+export const getMovieDetails = async ({ movieId, controller }) => {
+  const response = await axios.get(`/movie/${movieId}`, {
+    params: {
+      api_key: '6f46b11c91adf322aba101aff37aa78d',
+    },
+    signal: controller.signal,
+  });
+
+  return response.data;
+};
