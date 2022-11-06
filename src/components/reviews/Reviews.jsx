@@ -25,7 +25,7 @@ const Reviews = () => {
           return;
         }
         const { results } = await getMovieReviews(paramsRequest);
-        console.log('results in fetch', results);
+
         setReviewsById(results);
       } catch (error) {
         console.log(error);
@@ -42,7 +42,7 @@ const Reviews = () => {
   if (!reviewsById) {
     return null;
   }
-  console.log('reviewsById', reviewsById);
+
   return (
     <>
       {reviewsById.length !== 0 ? (

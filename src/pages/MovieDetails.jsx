@@ -13,7 +13,7 @@ import {
   ItemAdditionalInformation,
 } from './MovieDetails.styled';
 import { useParams, useLocation, Outlet, Link } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { HiArrowSmLeft } from 'react-icons/hi';
 
 const MovieDetails = () => {
@@ -96,7 +96,9 @@ const MovieDetails = () => {
               </ItemAdditionalInformation>
             </ListAdditionalInformation>
           </SectionAdditionalInformation>
-          <Outlet />
+          <Suspense fallback={<div>Loading subpage...</div>}>
+            <Outlet />
+          </Suspense>
         </>
       )}
     </main>
