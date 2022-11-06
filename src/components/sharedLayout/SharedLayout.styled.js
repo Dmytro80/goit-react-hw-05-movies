@@ -29,7 +29,8 @@ export const Link = styled(NavLink)`
     color: orangered;
   }
 
-  :hover:not(.active) {
+  :hover,
+  :focus {
     text-decoration: underline;
   }
 `;

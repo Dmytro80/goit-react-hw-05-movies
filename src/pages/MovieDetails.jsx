@@ -5,14 +5,23 @@ import {
   Text,
   OverviewTitle,
   GenresTitle,
+  ImageWrapper,
+  StyledLink,
+  SectionAdditionalInformation,
+  TitleAdditionalInformation,
+  ListAdditionalInformation,
+  ItemAdditionalInformation,
 } from './MovieDetails.styled';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useParams, useLocation, Outlet, Link } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { HiArrowSmLeft } from 'react-icons/hi';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieById, setMovieById] = useState(null);
-  console.log('id from params', movieId);
+  const location = useLocation();
+  const locationRef = useRef(location);
+  const backLinkHref = locationRef.current.state?.from ?? '/';
 
   useEffect(() => {
     const controller = new AbortController();
@@ -21,14 +30,12 @@ const MovieDetails = () => {
       controller,
     };
 
-    async function fetchMovies() {
+    async function fetchMovieById() {
       try {
         if (!movieId) {
           return;
         }
         const result = await getMovieDetails(paramsRequest);
-
-        console.log('консоль в фетче', result);
 
         setMovieById(result);
       } catch (error) {
@@ -36,7 +43,7 @@ const MovieDetails = () => {
       }
     }
 
-    fetchMovies();
+    fetchMovieById();
 
     return () => {
       controller.abort();
@@ -53,22 +60,44 @@ const MovieDetails = () => {
 
   return (
     <main>
-      <button type="button">Go back</button>
+      <StyledLink to={backLinkHref}>
+        <HiArrowSmLeft />
+        Go back
+      </StyledLink>
+
       {movieById && (
-        <SectionMovieDetails>
-          <img
-            src={`https://image.tmdb.org/t/p/w185_and_h278_multi_faces${poster_path}`}
-            alt="movie poster"
-          />
-          <TextWrapper>
-            <h1>{original_title}</h1>
-            <Text>User score: {Math.round(vote_average * 10)}%</Text>
-            <OverviewTitle>Overview</OverviewTitle>
-            <Text>{overview}</Text>
-            <GenresTitle>Genres</GenresTitle>
-            <Text>{movieGenres}</Text>
-          </TextWrapper>
-        </SectionMovieDetails>
+        <>
+          <SectionMovieDetails>
+            <ImageWrapper>
+              <img
+                src={`https://image.tmdb.org/t/p/w185_and_h278_multi_faces${poster_path}`}
+                alt="movie poster"
+              />
+            </ImageWrapper>
+            <TextWrapper>
+              <h1>{original_title}</h1>
+              <Text>User score: {Math.round(vote_average * 10)}%</Text>
+              <OverviewTitle>Overview</OverviewTitle>
+              <Text>{overview}</Text>
+              <GenresTitle>Genres</GenresTitle>
+              <Text>{movieGenres}</Text>
+            </TextWrapper>
+          </SectionMovieDetails>
+          <SectionAdditionalInformation>
+            <TitleAdditionalInformation>
+              Additional information
+            </TitleAdditionalInformation>
+            <ListAdditionalInformation>
+              <ItemAdditionalInformation>
+                <Link to="cast">Cast</Link>
+              </ItemAdditionalInformation>
+              <ItemAdditionalInformation>
+                <Link to="reviews">Reviews</Link>
+              </ItemAdditionalInformation>
+            </ListAdditionalInformation>
+          </SectionAdditionalInformation>
+          <Outlet />
+        </>
       )}
     </main>
   );
