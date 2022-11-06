@@ -10,3 +10,8 @@ export const ItemCast = styled.li`
 export const TextCast = styled.p`
   margin-top: 15px;
 `;
+export const Message = styled.p`
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-weight: 500;
+`;

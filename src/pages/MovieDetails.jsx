@@ -69,10 +69,17 @@ const MovieDetails = () => {
         <>
           <SectionMovieDetails>
             <ImageWrapper>
-              <img
-                src={`https://image.tmdb.org/t/p/w185_and_h278_multi_faces${poster_path}`}
-                alt="movie poster"
-              />
+              {poster_path ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w185_and_h278_multi_faces${poster_path}`}
+                  alt="movie poster"
+                />
+              ) : (
+                <img
+                  src="https://via.placeholder.com/185x278/?text=Comming_soon"
+                  alt="movie poster"
+                />
+              )}
             </ImageWrapper>
             <TextWrapper>
               <h1>{original_title}</h1>

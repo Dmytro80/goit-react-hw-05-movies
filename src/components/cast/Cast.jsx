@@ -1,7 +1,7 @@
 import { getMovieCast } from '../api/Api';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { ListCast, ItemCast, TextCast } from './Cast.styled';
+import { ListCast, ItemCast, TextCast, Message } from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -39,26 +39,32 @@ const Cast = () => {
   }
 
   return (
-    <ListCast>
-      {castById.map(({ profile_path, name, character, id }) => (
-        <ItemCast key={id}>
-          {profile_path ? (
-            <img
-              src={`https://image.tmdb.org/t/p/w185_and_h278_multi_faces${profile_path}`}
-              alt={`profile of ${name}`}
-            />
-          ) : (
-            <img
-              src="https://via.placeholder.com/185x278/?text=Comming_soon"
-              alt="profile"
-            />
-          )}
+    <>
+      {castById.length !== 0 ? (
+        <ListCast>
+          {castById.map(({ profile_path, name, character, id }) => (
+            <ItemCast key={id}>
+              {profile_path ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w185_and_h278_multi_faces${profile_path}`}
+                  alt={`profile of ${name}`}
+                />
+              ) : (
+                <img
+                  src="https://via.placeholder.com/185x278/?text=Comming_soon"
+                  alt="profile"
+                />
+              )}
 
-          <TextCast>{name}</TextCast>
-          <TextCast>Character: {character}</TextCast>
-        </ItemCast>
-      ))}
-    </ListCast>
+              <TextCast>{name}</TextCast>
+              <TextCast>Character: {character}</TextCast>
+            </ItemCast>
+          ))}
+        </ListCast>
+      ) : (
+        <Message>We don`t have any cast for this movie</Message>
+      )}
+    </>
   );
 };
 
