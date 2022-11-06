@@ -43,3 +43,14 @@ export const getMovieCast = async ({ movieId, controller }) => {
 
   return response.data;
 };
+
+export const getMovieReviews = async ({ movieId, controller }) => {
+  const response = await axios.get(`/movie/${movieId}/reviews`, {
+    params: {
+      api_key: '6f46b11c91adf322aba101aff37aa78d',
+    },
+    signal: controller.signal,
+  });
+
+  return response.data;
+};

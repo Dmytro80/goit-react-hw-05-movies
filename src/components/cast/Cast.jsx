@@ -5,7 +5,7 @@ import { ListCast, ItemCast, TextCast } from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
-  const [castById, setCastById] = useState([]);
+  const [castById, setCastById] = useState(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -34,7 +34,7 @@ const Cast = () => {
     };
   }, [movieId]);
 
-  if (castById.length === 0) {
+  if (!castById) {
     return null;
   }
 
